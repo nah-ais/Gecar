@@ -874,10 +874,9 @@ with tabs[5]:
             st.markdown("**GAP**")
 
             # Gap score untuk kombinasi ini
-            gap_row = gap_df[
-                (gap_df["Pilar_Sektoral"] == sel_pilar if sel_pilar != "Semua" else True) &
-                (gap_df["Wilayah"] == sel_wilayah if sel_wilayah != "Semua" else True)
-            ]
+            mask_pilar = (gap_df["Pilar_Sektoral"] == sel_pilar) if sel_pilar != "Semua" else pd.Series(True, index=gap_df.index)
+            mask_wil   = (gap_df["Wilayah"] == sel_wilayah)       if sel_wilayah != "Semua" else pd.Series(True, index=gap_df.index)
+            gap_row = gap_df[mask_pilar & mask_wil]
             if not gap_row.empty:
                 avg_g = gap_row["Gap_Score"].mean()
                 color = "#ef4444" if avg_g > 0.6 else "#f59e0b" if avg_g > 0.4 else "#22c55e"
