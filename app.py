@@ -47,8 +47,8 @@ def find_file(filename):
             return full
     return None
 
-PATH_KELOMPOK = find_file("Gecar - Kelompok.csv") or "Gecar_-_Kelompok.csv"
-PATH_KII      = find_file("Gecar - KII.csv")      or "Gecar_-_KII.csv"
+PATH_KELOMPOK = find_file("Gecar_-_Kelompok.csv") or "Gecar_-_Kelompok.csv"
+PATH_KII      = find_file("Gecar_-_KII.csv")      or "Gecar_-_KII.csv"
 
 # ── Import modul analisis ────────────────────────────────────────────────────
 sys.path.insert(0, BASE_DIR)
@@ -358,16 +358,18 @@ with tabs[0]:
     ]].sort_values("Gap_Score", ascending=False)
 
     def color_gap(val):
-        if isinstance(val, float):
-            if val >= 0.9: return "background-color: #7f1d1d; color: #fca5a5"
-            elif val >= 0.7: return "background-color: #78350f; color: #fdba74"
-            elif val >= 0.5: return "background-color: #713f12; color: #fde68a"
-            elif val >= 0.25: return "background-color: #14532d; color: #86efac"
+        try:
+            v = float(val)
+            if v >= 0.9: return "background-color: #7f1d1d; color: #fca5a5"
+            elif v >= 0.7: return "background-color: #78350f; color: #fdba74"
+            elif v >= 0.5: return "background-color: #713f12; color: #fde68a"
+            elif v >= 0.25: return "background-color: #14532d; color: #86efac"
             else: return "background-color: #052e16; color: #4ade80"
-        return ""
+        except (TypeError, ValueError):
+            return ""
 
     st.dataframe(
-        gap_display.style.applymap(color_gap, subset=["Gap_Score"]),
+        gap_display.style.map(color_gap, subset=["Gap_Score"]),
         use_container_width=True,
         height=350,
     )
