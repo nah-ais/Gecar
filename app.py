@@ -47,8 +47,8 @@ def find_file(filename):
             return full
     return None
 
-PATH_KELOMPOK = find_file("Gecar_-_Kelompok.csv") or "Gecar_-_Kelompok.csv"
-PATH_KII      = find_file("Gecar_-_KII.csv")      or "Gecar_-_KII.csv"
+PATH_KELOMPOK = find_file("Gecar - Kelompok.csv") or "Gecar_-_Kelompok.csv"
+PATH_KII      = find_file("Gecar - KII.csv")      or "Gecar_-_KII.csv"
 
 # ── Import modul analisis ────────────────────────────────────────────────────
 sys.path.insert(0, BASE_DIR)
