@@ -21,14 +21,14 @@ st.set_page_config(
 )
 
 # ──────────────────────────────────────────────
-# CUSTOM CSS
+# CUSTOM CSS (Tema Oranye - Putih)
 # ──────────────────────────────────────────────
 st.markdown(
     """
     <style>
         /* ─ Main container ─ */
         .main { 
-            background-color: #F7F9FC; 
+            background-color: #FAFAFA; 
         }
 
         /* ─ Metric cards ─ */
@@ -36,13 +36,13 @@ st.markdown(
             background: white;
             border-radius: 12px;
             padding: 18px 22px;
-            border-left: 5px solid #1A73E8;
+            border-left: 5px solid #FF8C00;
             box-shadow: 0 2px 8px rgba(0,0,0,.07);
         }
 
         /* ─ Section headers ─ */
         .section-header {
-            background: linear-gradient(135deg, #1A73E8 0%, #0D47A1 100%);
+            background: linear-gradient(135deg, #FF9800 0%, #E65100 100%);
             color: white;
             padding: 14px 22px;
             border-radius: 10px;
@@ -53,37 +53,37 @@ st.markdown(
 
         /* ─ Insight boxes ─ */
         .insight-box {
-            background: #E8F4FD;
-            border-left: 4px solid #1A73E8;
-            padding: 14px 18px;
-            border-radius: 8px;
-            margin: 10px 0;
-            font-size: 14px;
-            color: #1A237E;
-        }
-        .insight-box-warning {
             background: #FFF3E0;
-            border-left: 4px solid #FF6F00;
+            border-left: 4px solid #FF9800;
             padding: 14px 18px;
             border-radius: 8px;
             margin: 10px 0;
             font-size: 14px;
             color: #E65100;
         }
-        .insight-box-success {
-            background: #E8F5E9;
-            border-left: 4px solid #2E7D32;
+        .insight-box-warning {
+            background: #FFEBEE;
+            border-left: 4px solid #F44336;
             padding: 14px 18px;
             border-radius: 8px;
             margin: 10px 0;
             font-size: 14px;
-            color: #1B5E20;
+            color: #C62828;
+        }
+        .insight-box-success {
+            background: #F1F8E9;
+            border-left: 4px solid #7CB342;
+            padding: 14px 18px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-size: 14px;
+            color: #33691E;
         }
 
         /* ─ Dimension badge ─ */
         .dim-badge {
             display: inline-block;
-            background: #1A73E8;
+            background: #FF9800;
             color: white;
             padding: 3px 10px;
             border-radius: 20px;
@@ -98,7 +98,7 @@ st.markdown(
 
         /* ─ Sidebar ─ */
         section[data-testid="stSidebar"] {
-            background: #0D47A1;
+            background: #E65100;
         }
         section[data-testid="stSidebar"] * {
             color: white !important;
@@ -268,14 +268,13 @@ SHARED_DIMS = [
     "📋 Rekomendasi & Program",
 ]
 
-# Color palette
+# Color palette (Tema Oranye)
 COLORS = {
-    "kelompok": "#1A73E8",
-    "kii": "#EA4335",
-    "wilayah": ["#1A73E8", "#34A853", "#FBBC04"],
-    "gender": {"Perempuan": "#E91E63", "Laki laki": "#1A73E8"},
-    "usia": {"Anak": "#FF6D00", "Dewasa": "#6200EA"},
-    "dim": px.colors.qualitative.Set3,
+    "kelompok": "#FF9800",
+    "kii": "#FF5722",
+    "wilayah": ["#FF9800", "#FF5722", "#FFC107"],
+    "gender": {"Perempuan": "#FF7043", "Laki laki": "#FFA726"},
+    "usia": {"Anak": "#FFCC80", "Dewasa": "#F57C00"},
 }
 
 
@@ -409,7 +408,7 @@ if page == "🏠 Ringkasan Eksekutif":
         )
         fig.update_traces(textposition="outside", textinfo="label+percent")
         fig.update_layout(height=300, margin=dict(t=20, b=20), showlegend=False)
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width='stretch')
 
         # Gender + usia stacked
         gu = df_k.groupby(["Jenis_Kelamin", "Kelompok_Usia"]).size().reset_index(name="N")
@@ -423,7 +422,7 @@ if page == "🏠 Ringkasan Eksekutif":
             barmode="stack",
         )
         fig2.update_layout(height=280, margin=dict(t=20, b=20))
-        st.plotly_chart(fig2, use_container_width=True)
+        st.plotly_chart(fig2, width='stretch')
 
     with col2:
         section_header("🏛️ Distribusi Responden KII")
@@ -439,7 +438,7 @@ if page == "🏠 Ringkasan Eksekutif":
             labels={"N": "Jumlah Respons", "Narsum": "Narasumber"},
         )
         fig3.update_layout(height=300, margin=dict(t=20, b=20))
-        st.plotly_chart(fig3, use_container_width=True)
+        st.plotly_chart(fig3, width='stretch')
 
         # Dimension coverage KII
         dim_kii = df_kii.groupby("Dimensi").size().reset_index(name="N").sort_values("N", ascending=True)
@@ -449,11 +448,11 @@ if page == "🏠 Ringkasan Eksekutif":
             y="Dimensi", 
             orientation="h",
             color="N", 
-            color_continuous_scale="Blues",
+            color_continuous_scale="Oranges",
             labels={"N": "Jumlah Respons", "Dimensi": ""},
         )
         fig4.update_layout(height=280, margin=dict(t=20, b=20), coloraxis_showscale=False)
-        st.plotly_chart(fig4, use_container_width=True)
+        st.plotly_chart(fig4, width='stretch')
 
     st.markdown("---")
     section_header("🗺️ Dimensi Analisa & Pemetaan Pertanyaan")
@@ -526,7 +525,7 @@ elif page == "📋 Dataset Masyarakat":
                 hole=0.35
             )
             fig.update_layout(height=320, margin=dict(t=40, b=10))
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, width='stretch')
 
         with col2:
             # Gender
@@ -542,7 +541,7 @@ elif page == "📋 Dataset Masyarakat":
             )
             fig.update_traces(textposition="outside")
             fig.update_layout(height=320, margin=dict(t=40, b=10), showlegend=False)
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, width='stretch')
 
         with col3:
             # Usia
@@ -552,11 +551,11 @@ elif page == "📋 Dataset Masyarakat":
                 values="N", 
                 names="Kelompok_Usia", 
                 title="Distribusi Kelompok Usia",
-                color_discrete_sequence=["#FF6D00", "#6200EA"], 
+                color_discrete_sequence=["#FFCC80", "#F57C00"], 
                 hole=0.35
             )
             fig.update_layout(height=320, margin=dict(t=40, b=10))
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, width='stretch')
 
         # Wilayah x Usia x Gender stacked
         st.markdown("---")
@@ -573,7 +572,7 @@ elif page == "📋 Dataset Masyarakat":
             labels={"N": "Jumlah Respons"}
         )
         fig.update_layout(height=380)
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width='stretch')
 
         # Respons per pertanyaan (top 15)
         st.markdown("---")
@@ -589,11 +588,11 @@ elif page == "📋 Dataset Masyarakat":
             orientation="h",
             title="Top 15 Pertanyaan Berdasarkan Jumlah Respons",
             color="N", 
-            color_continuous_scale="Blues",
+            color_continuous_scale="Oranges",
             labels={"N": "Jumlah Respons", "Pertanyaan_Short": ""}
         )
         fig.update_layout(height=480, coloraxis_showscale=False)
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width='stretch')
 
     # ── Tab 2: Dimensi ──
     with tab2:
@@ -608,11 +607,11 @@ elif page == "📋 Dataset Masyarakat":
                 orientation="h",
                 title="Jumlah Respons per Dimensi",
                 color="N", 
-                color_continuous_scale="Blues",
+                color_continuous_scale="Oranges",
                 labels={"N": "Jumlah Respons", "Dimensi": ""}
             )
             fig.update_layout(height=420, coloraxis_showscale=False)
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, width='stretch')
 
         with col2:
             fig = px.pie(
@@ -620,11 +619,11 @@ elif page == "📋 Dataset Masyarakat":
                 values="N", 
                 names="Dimensi",
                 title="Proporsi Dimensi",
-                color_discrete_sequence=px.colors.qualitative.Set3, 
+                color_discrete_sequence=px.colors.sequential.Oranges, 
                 hole=0.3
             )
             fig.update_layout(height=420, margin=dict(t=40, b=10))
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, width='stretch')
 
         # Dimensi per Wilayah
         dw = df_k_f.groupby(["Wilayah", "Dimensi"]).size().reset_index(name="N")
@@ -635,10 +634,10 @@ elif page == "📋 Dataset Masyarakat":
             color="Dimensi",
             barmode="stack",
             title="Distribusi Dimensi per Wilayah",
-            color_discrete_sequence=px.colors.qualitative.Set3
+            color_discrete_sequence=px.colors.sequential.Oranges
         )
         fig.update_layout(height=400)
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width='stretch')
 
         # Dimensi x Usia
         du = df_k_f.groupby(["Kelompok_Usia", "Dimensi"]).size().reset_index(name="N")
@@ -652,7 +651,7 @@ elif page == "📋 Dataset Masyarakat":
             color_discrete_map=COLORS["usia"]
         )
         fig.update_layout(height=380, xaxis_tickangle=-30)
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width='stretch')
 
         insight(
             "Dimensi 'Ketegangan & Konflik' dan 'Kebutuhan Utama' mendominasi respons masyarakat, "
@@ -681,7 +680,7 @@ elif page == "📋 Dataset Masyarakat":
         ][["Wilayah", "Kelompok_Usia", "Jenis_Kelamin", "Pertanyaan", "Tanggapan"]].reset_index(drop=True)
 
         st.info(f"Ditemukan **{len(filtered)}** respons untuk dimensi **{sel_dim}**")
-        st.dataframe(filtered, use_container_width=True, height=450)
+        st.dataframe(filtered, width='stretch', height=450)
 
     # ── Tab 4: Cross-Tabulation ──
     with tab4:
@@ -693,10 +692,10 @@ elif page == "📋 Dataset Masyarakat":
             text_auto=True, 
             aspect="auto",
             title="Heatmap: Dimensi × Wilayah (Jumlah Respons)",
-            color_continuous_scale="Blues"
+            color_continuous_scale="Oranges"
         )
         fig.update_layout(height=480)
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width='stretch')
 
         ct2 = pd.crosstab(df_k_f["Dimensi"], df_k_f["Kelompok_Usia"])
         fig2 = px.imshow(
@@ -707,7 +706,7 @@ elif page == "📋 Dataset Masyarakat":
             color_continuous_scale="Oranges"
         )
         fig2.update_layout(height=480)
-        st.plotly_chart(fig2, use_container_width=True)
+        st.plotly_chart(fig2, width='stretch')
 
 
 # ══════════════════════════════════════════════
@@ -732,11 +731,11 @@ elif page == "🏛️ Dataset KII (Pemerintah)":
                 title="Distribusi Narasumber",
                 color="Narsum", 
                 text="N",
-                color_discrete_sequence=px.colors.qualitative.Pastel
+                color_discrete_sequence=px.colors.sequential.Oranges
             )
             fig.update_traces(textposition="outside")
             fig.update_layout(height=350, showlegend=False)
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, width='stretch')
 
         with col2:
             wil_kii = df_kii_f.groupby("Wilayah").size().reset_index(name="N")
@@ -749,7 +748,7 @@ elif page == "🏛️ Dataset KII (Pemerintah)":
                 hole=0.4
             )
             fig.update_layout(height=350)
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, width='stretch')
 
         # Narsum x Wilayah x Pertanyaan heatmap
         nw = df_kii_f.groupby(["Narsum", "Wilayah"]).size().reset_index(name="N")
@@ -763,7 +762,7 @@ elif page == "🏛️ Dataset KII (Pemerintah)":
             color_discrete_sequence=COLORS["wilayah"]
         )
         fig.update_layout(height=350)
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width='stretch')
 
         # Top questions
         q_kii = df_kii_f.groupby("Pertanyaan").size().reset_index(name="N").nlargest(12, "N")
@@ -778,11 +777,11 @@ elif page == "🏛️ Dataset KII (Pemerintah)":
             orientation="h",
             title="Top 12 Pertanyaan KII Berdasarkan Respons",
             color="N", 
-            color_continuous_scale="Reds",
+            color_continuous_scale="Oranges",
             labels={"N": "Jumlah Respons", "Q_Short": ""}
         )
         fig.update_layout(height=420, coloraxis_showscale=False)
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width='stretch')
 
     with tab2:
         dim_kii = df_kii_f.groupby("Dimensi").size().reset_index(name="N").sort_values("N", ascending=False)
@@ -796,11 +795,11 @@ elif page == "🏛️ Dataset KII (Pemerintah)":
                 orientation="h",
                 title="Jumlah Respons KII per Dimensi",
                 color="N", 
-                color_continuous_scale="Reds",
+                color_continuous_scale="Oranges",
                 labels={"N": "Jumlah Respons", "Dimensi": ""}
             )
             fig.update_layout(height=380, coloraxis_showscale=False)
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, width='stretch')
             
         with col2:
             fig = px.pie(
@@ -808,11 +807,11 @@ elif page == "🏛️ Dataset KII (Pemerintah)":
                 values="N", 
                 names="Dimensi",
                 title="Proporsi Dimensi KII",
-                color_discrete_sequence=px.colors.qualitative.Set2, 
+                color_discrete_sequence=px.colors.sequential.Oranges, 
                 hole=0.3
             )
             fig.update_layout(height=380)
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, width='stretch')
 
         # Dimensi x Narsum
         dn = df_kii_f.groupby(["Narsum", "Dimensi"]).size().reset_index(name="N")
@@ -829,10 +828,10 @@ elif page == "🏛️ Dataset KII (Pemerintah)":
             text_auto=True, 
             aspect="auto",
             title="Heatmap: Dimensi × Narasumber KII",
-            color_continuous_scale="Reds"
+            color_continuous_scale="Oranges"
         )
         fig.update_layout(height=400)
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width='stretch')
 
         insight(
             "Dimensi 'Dampak & Operasional LSM' adalah unik untuk KII — mencerminkan "
@@ -860,7 +859,7 @@ elif page == "🏛️ Dataset KII (Pemerintah)":
         ][["Wilayah", "Narsum", "Pertanyaan", "Tanggapan"]].reset_index(drop=True)
 
         st.info(f"Ditemukan **{len(filtered_kii)}** respons untuk dimensi **{sel_dim_kii}**")
-        st.dataframe(filtered_kii, use_container_width=True, height=450)
+        st.dataframe(filtered_kii, width='stretch', height=450)
 
 
 # ══════════════════════════════════════════════
@@ -903,7 +902,7 @@ elif page == "🔍 Analisa Dimensi":
             )
             fig.update_traces(textposition="outside")
             fig.update_layout(height=300, showlegend=False, margin=dict(t=10, b=10))
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, width='stretch')
 
             # Usia breakdown
             u_dk = dk_dim.groupby(["Kelompok_Usia", "Jenis_Kelamin"]).size().reset_index(name="N")
@@ -919,7 +918,7 @@ elif page == "🔍 Analisa Dimensi":
             )
             fig2.update_traces(textposition="outside")
             fig2.update_layout(height=280, margin=dict(t=10, b=10))
-            st.plotly_chart(fig2, use_container_width=True)
+            st.plotly_chart(fig2, width='stretch')
         else:
             st.info("Tidak ada data untuk dimensi dan filter ini.")
 
@@ -940,7 +939,7 @@ elif page == "🔍 Analisa Dimensi":
             )
             fig.update_traces(textposition="inside")
             fig.update_layout(height=300, margin=dict(t=10, b=10))
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, width='stretch')
 
             # Pertanyaan breakdown
             q_dkii = dkii_dim.groupby("Pertanyaan").size().reset_index(name="N")
@@ -952,11 +951,11 @@ elif page == "🔍 Analisa Dimensi":
                 q_dkii, 
                 values="N", 
                 names="Q_Short",
-                color_discrete_sequence=px.colors.qualitative.Set2, 
+                color_discrete_sequence=px.colors.sequential.Oranges, 
                 hole=0.3
             )
             fig2.update_layout(height=280, margin=dict(t=10, b=10))
-            st.plotly_chart(fig2, use_container_width=True)
+            st.plotly_chart(fig2, width='stretch')
         else:
             st.info("Tidak ada data KII untuk dimensi ini.")
 
@@ -1009,7 +1008,7 @@ elif page == "⚖️ Perbandingan":
         fill="toself",
         name="Masyarakat",
         line_color=COLORS["kelompok"],
-        fillcolor="rgba(26,115,232,0.15)",
+        fillcolor="rgba(255,152,0,0.25)",  # Orange with transparency
     ))
     fig.add_trace(go.Scatterpolar(
         r=kii_pct + [kii_pct[0]],
@@ -1017,7 +1016,7 @@ elif page == "⚖️ Perbandingan":
         fill="toself",
         name="KII (Pemerintah)",
         line_color=COLORS["kii"],
-        fillcolor="rgba(234,67,53,0.15)",
+        fillcolor="rgba(255,87,34,0.25)",  # Deep orange/red with transparency
     ))
     fig.update_layout(
         polar=dict(radialaxis=dict(visible=True, range=[0, max(max(k_pct), max(kii_pct)) + 5])),
@@ -1025,7 +1024,7 @@ elif page == "⚖️ Perbandingan":
         legend=dict(orientation="h", y=-0.1),
         height=500,
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width='stretch')
 
     st.markdown("---")
 
@@ -1048,7 +1047,7 @@ elif page == "⚖️ Perbandingan":
         labels={"Persen": "Proporsi (%)", "Dimensi": ""},
     )
     fig2.update_layout(height=420, xaxis_tickangle=-25)
-    st.plotly_chart(fig2, use_container_width=True)
+    st.plotly_chart(fig2, width='stretch')
 
     # GAP Analysis
     st.markdown("---")
@@ -1074,7 +1073,7 @@ elif page == "⚖️ Perbandingan":
     )
     fig3.update_traces(texttemplate="%{text:.1f}pp", textposition="outside")
     fig3.update_layout(height=420)
-    st.plotly_chart(fig3, use_container_width=True)
+    st.plotly_chart(fig3, width='stretch')
 
     st.markdown("---")
     col1, col2 = st.columns(2)
@@ -1094,7 +1093,7 @@ elif page == "⚖️ Perbandingan":
     # Tabel ringkasan
     st.markdown("---")
     st.markdown("### 📋 Tabel Perbandingan Lengkap")
-    st.dataframe(comp_df.set_index("Dimensi").round(1), use_container_width=True)
+    st.dataframe(comp_df.set_index("Dimensi").round(1), width='stretch')
 
 
 # ══════════════════════════════════════════════
@@ -1135,7 +1134,7 @@ elif page == "🗺️ Analisa Wilayah":
         )
         fig.update_traces(textposition="outside")
         fig.update_layout(height=300, margin=dict(t=10, b=10))
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width='stretch')
 
         # Dimensi coverage
         d_wil = dk_wil.groupby("Dimensi").size().reset_index(name="N").sort_values("N", ascending=True)
@@ -1145,11 +1144,11 @@ elif page == "🗺️ Analisa Wilayah":
             y="Dimensi", 
             orientation="h",
             color="N", 
-            color_continuous_scale="Blues",
+            color_continuous_scale="Oranges",
             labels={"N": "Respons", "Dimensi": ""}
         )
         fig2.update_layout(height=380, coloraxis_showscale=False, margin=dict(t=10, b=10))
-        st.plotly_chart(fig2, use_container_width=True)
+        st.plotly_chart(fig2, width='stretch')
 
     with col2:
         st.markdown(f"#### 🏛️ Profil KII — {sel_wil_page}")
@@ -1161,10 +1160,10 @@ elif page == "🗺️ Analisa Wilayah":
                 values="N", 
                 names="Narsum",
                 hole=0.4, 
-                color_discrete_sequence=px.colors.qualitative.Pastel
+                color_discrete_sequence=px.colors.sequential.Oranges
             )
             fig.update_layout(height=300, margin=dict(t=10, b=10))
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, width='stretch')
 
             # Dimensi KII
             dk_wil2 = dkii_wil.groupby("Dimensi").size().reset_index(name="N").sort_values("N", ascending=True)
@@ -1174,11 +1173,11 @@ elif page == "🗺️ Analisa Wilayah":
                 y="Dimensi", 
                 orientation="h",
                 color="N", 
-                color_continuous_scale="Reds",
+                color_continuous_scale="Oranges",
                 labels={"N": "Respons", "Dimensi": ""}
             )
             fig2.update_layout(height=380, coloraxis_showscale=False, margin=dict(t=10, b=10))
-            st.plotly_chart(fig2, use_container_width=True)
+            st.plotly_chart(fig2, width='stretch')
         else:
             st.info(f"Tidak ada data KII untuk wilayah **{sel_wil_page}**.")
 
