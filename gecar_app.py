@@ -21,87 +21,83 @@ st.set_page_config(
 )
 
 # ──────────────────────────────────────────────
-# CUSTOM CSS (Tema Oranye - Putih)
+# CUSTOM CSS (Minimalist Orange Accent)
 # ──────────────────────────────────────────────
 st.markdown(
     """
     <style>
         /* ─ Main container ─ */
         .main { 
-            background-color: #FAFAFA; 
+            background-color: #F8FAFC; 
         }
 
         /* ─ Metric cards ─ */
         div[data-testid="metric-container"] {
-            background: white;
-            border-radius: 12px;
-            padding: 18px 22px;
+            background: #FFFFFF;
+            border-radius: 10px;
+            padding: 16px 20px;
             border-left: 5px solid #FF8C00;
-            box-shadow: 0 2px 8px rgba(0,0,0,.07);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
 
         /* ─ Section headers ─ */
         .section-header {
-            background: linear-gradient(135deg, #FF9800 0%, #E65100 100%);
-            color: white;
-            padding: 14px 22px;
-            border-radius: 10px;
+            background: #FFFFFF;
+            color: #1E293B;
+            padding: 12px 18px;
+            border-radius: 8px;
+            border-left: 6px solid #FF9800;
             font-size: 18px;
             font-weight: 700;
             margin-bottom: 18px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
 
-        /* ─ Insight boxes ─ */
+        /* ─ Insight boxes (Semantic Colors) ─ */
         .insight-box {
-            background: #FFF3E0;
-            border-left: 4px solid #FF9800;
+            background: #F0F9FF;
+            border-left: 4px solid #0EA5E9;
             padding: 14px 18px;
-            border-radius: 8px;
+            border-radius: 6px;
             margin: 10px 0;
             font-size: 14px;
-            color: #E65100;
+            color: #0369A1;
         }
         .insight-box-warning {
-            background: #FFEBEE;
-            border-left: 4px solid #F44336;
+            background: #FFF7ED;
+            border-left: 4px solid #F97316;
             padding: 14px 18px;
-            border-radius: 8px;
+            border-radius: 6px;
             margin: 10px 0;
             font-size: 14px;
-            color: #C62828;
+            color: #C2410C;
         }
         .insight-box-success {
-            background: #F1F8E9;
-            border-left: 4px solid #7CB342;
+            background: #F0FDF4;
+            border-left: 4px solid #22C55E;
             padding: 14px 18px;
-            border-radius: 8px;
+            border-radius: 6px;
             margin: 10px 0;
             font-size: 14px;
-            color: #33691E;
+            color: #15803D;
         }
 
-        /* ─ Dimension badge ─ */
+        /* ─ Dimension badge (Soft Orange) ─ */
         .dim-badge {
             display: inline-block;
-            background: #FF9800;
-            color: white;
-            padding: 3px 10px;
+            background: #FFEDD5;
+            color: #C2410C;
+            border: 1px solid #FDBA74;
+            padding: 4px 12px;
             border-radius: 20px;
             font-size: 12px;
+            font-weight: 600;
             margin: 3px;
         }
 
         /* ─ Tab styling ─ */
         div[data-testid="stTabs"] button {
             font-weight: 600;
-        }
-
-        /* ─ Sidebar ─ */
-        section[data-testid="stSidebar"] {
-            background: #E65100;
-        }
-        section[data-testid="stSidebar"] * {
-            color: white !important;
         }
     </style>
     """,
@@ -268,13 +264,13 @@ SHARED_DIMS = [
     "📋 Rekomendasi & Program",
 ]
 
-# Color palette (Tema Oranye)
+# Color palette (Oranye & Teal/Navy untuk kontras tinggi)
 COLORS = {
-    "kelompok": "#FF9800",
-    "kii": "#FF5722",
-    "wilayah": ["#FF9800", "#FF5722", "#FFC107"],
-    "gender": {"Perempuan": "#FF7043", "Laki laki": "#FFA726"},
-    "usia": {"Anak": "#FFCC80", "Dewasa": "#F57C00"},
+    "kelompok": "#FF9800",   # Orange
+    "kii": "#264653",        # Dark Slate/Teal
+    "wilayah": ["#FF9800", "#2A9D8F", "#E9C46A"], # Orange, Teal, Yellow
+    "gender": {"Perempuan": "#F4A261", "Laki laki": "#2A9D8F"},
+    "usia": {"Anak": "#E9C46A", "Dewasa": "#264653"},
 }
 
 
@@ -303,7 +299,7 @@ df_kii = assign_dimension(df_kii, KII_DIMS)
 # SIDEBAR
 # ──────────────────────────────────────────────
 with st.sidebar:
-    st.markdown("## 📊 GECAR Dashboard")
+    st.markdown("<h2 style='color:#FF8C00;'>📊 GECAR Dashboard</h2>", unsafe_allow_html=True)
     st.markdown("**Analisa Konteks Kemanusiaan**")
     st.markdown("---")
 
@@ -448,7 +444,7 @@ if page == "🏠 Ringkasan Eksekutif":
             y="Dimensi", 
             orientation="h",
             color="N", 
-            color_continuous_scale="Oranges",
+            color_continuous_scale="Blues", # Menggunakan biru agar kontras dengan oranye di sebelahnya
             labels={"N": "Jumlah Respons", "Dimensi": ""},
         )
         fig4.update_layout(height=280, margin=dict(t=20, b=20), coloraxis_showscale=False)
@@ -551,7 +547,7 @@ elif page == "📋 Dataset Masyarakat":
                 values="N", 
                 names="Kelompok_Usia", 
                 title="Distribusi Kelompok Usia",
-                color_discrete_sequence=["#FFCC80", "#F57C00"], 
+                color_discrete_map=COLORS["usia"], 
                 hole=0.35
             )
             fig.update_layout(height=320, margin=dict(t=40, b=10))
@@ -619,7 +615,7 @@ elif page == "📋 Dataset Masyarakat":
                 values="N", 
                 names="Dimensi",
                 title="Proporsi Dimensi",
-                color_discrete_sequence=px.colors.sequential.Oranges, 
+                color_discrete_sequence=px.colors.qualitative.Safe, 
                 hole=0.3
             )
             fig.update_layout(height=420, margin=dict(t=40, b=10))
@@ -634,7 +630,7 @@ elif page == "📋 Dataset Masyarakat":
             color="Dimensi",
             barmode="stack",
             title="Distribusi Dimensi per Wilayah",
-            color_discrete_sequence=px.colors.sequential.Oranges
+            color_discrete_sequence=px.colors.qualitative.Safe
         )
         fig.update_layout(height=400)
         st.plotly_chart(fig, width='stretch')
@@ -703,7 +699,7 @@ elif page == "📋 Dataset Masyarakat":
             text_auto=True, 
             aspect="auto",
             title="Heatmap: Dimensi × Kelompok Usia",
-            color_continuous_scale="Oranges"
+            color_continuous_scale="Teal" # Memberi variasi warna
         )
         fig2.update_layout(height=480)
         st.plotly_chart(fig2, width='stretch')
@@ -731,7 +727,7 @@ elif page == "🏛️ Dataset KII (Pemerintah)":
                 title="Distribusi Narasumber",
                 color="Narsum", 
                 text="N",
-                color_discrete_sequence=px.colors.sequential.Oranges
+                color_discrete_sequence=px.colors.qualitative.Safe
             )
             fig.update_traces(textposition="outside")
             fig.update_layout(height=350, showlegend=False)
@@ -777,7 +773,7 @@ elif page == "🏛️ Dataset KII (Pemerintah)":
             orientation="h",
             title="Top 12 Pertanyaan KII Berdasarkan Respons",
             color="N", 
-            color_continuous_scale="Oranges",
+            color_continuous_scale="Blues", # Membedakan KII dengan Masyarakat
             labels={"N": "Jumlah Respons", "Q_Short": ""}
         )
         fig.update_layout(height=420, coloraxis_showscale=False)
@@ -795,7 +791,7 @@ elif page == "🏛️ Dataset KII (Pemerintah)":
                 orientation="h",
                 title="Jumlah Respons KII per Dimensi",
                 color="N", 
-                color_continuous_scale="Oranges",
+                color_continuous_scale="Blues",
                 labels={"N": "Jumlah Respons", "Dimensi": ""}
             )
             fig.update_layout(height=380, coloraxis_showscale=False)
@@ -807,7 +803,7 @@ elif page == "🏛️ Dataset KII (Pemerintah)":
                 values="N", 
                 names="Dimensi",
                 title="Proporsi Dimensi KII",
-                color_discrete_sequence=px.colors.sequential.Oranges, 
+                color_discrete_sequence=px.colors.qualitative.Safe, 
                 hole=0.3
             )
             fig.update_layout(height=380)
@@ -828,7 +824,7 @@ elif page == "🏛️ Dataset KII (Pemerintah)":
             text_auto=True, 
             aspect="auto",
             title="Heatmap: Dimensi × Narasumber KII",
-            color_continuous_scale="Oranges"
+            color_continuous_scale="Blues"
         )
         fig.update_layout(height=400)
         st.plotly_chart(fig, width='stretch')
@@ -951,7 +947,7 @@ elif page == "🔍 Analisa Dimensi":
                 q_dkii, 
                 values="N", 
                 names="Q_Short",
-                color_discrete_sequence=px.colors.sequential.Oranges, 
+                color_discrete_sequence=px.colors.qualitative.Safe, 
                 hole=0.3
             )
             fig2.update_layout(height=280, margin=dict(t=10, b=10))
@@ -1008,7 +1004,7 @@ elif page == "⚖️ Perbandingan":
         fill="toself",
         name="Masyarakat",
         line_color=COLORS["kelompok"],
-        fillcolor="rgba(255,152,0,0.25)",  # Orange with transparency
+        fillcolor="rgba(255,152,0,0.2)",  # Soft Orange
     ))
     fig.add_trace(go.Scatterpolar(
         r=kii_pct + [kii_pct[0]],
@@ -1016,7 +1012,7 @@ elif page == "⚖️ Perbandingan":
         fill="toself",
         name="KII (Pemerintah)",
         line_color=COLORS["kii"],
-        fillcolor="rgba(255,87,34,0.25)",  # Deep orange/red with transparency
+        fillcolor="rgba(38,70,83,0.2)",  # Soft Dark Teal
     ))
     fig.update_layout(
         polar=dict(radialaxis=dict(visible=True, range=[0, max(max(k_pct), max(kii_pct)) + 5])),
@@ -1160,7 +1156,7 @@ elif page == "🗺️ Analisa Wilayah":
                 values="N", 
                 names="Narsum",
                 hole=0.4, 
-                color_discrete_sequence=px.colors.sequential.Oranges
+                color_discrete_sequence=px.colors.qualitative.Safe
             )
             fig.update_layout(height=300, margin=dict(t=10, b=10))
             st.plotly_chart(fig, width='stretch')
@@ -1173,7 +1169,7 @@ elif page == "🗺️ Analisa Wilayah":
                 y="Dimensi", 
                 orientation="h",
                 color="N", 
-                color_continuous_scale="Oranges",
+                color_continuous_scale="Blues",
                 labels={"N": "Respons", "Dimensi": ""}
             )
             fig2.update_layout(height=380, coloraxis_showscale=False, margin=dict(t=10, b=10))
